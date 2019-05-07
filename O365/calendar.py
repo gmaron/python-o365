@@ -1372,7 +1372,7 @@ class Event(ApiComponent, AttachableMixin, HandleRecipientsMixin):
         else:
             self.__modified = self.protocol.timezone.localize(dt.datetime.now())
 
-        return True
+        return response.json()
 
     def accept_event(self, comment=None, *, send_response=True,
                      tentatively=False):
