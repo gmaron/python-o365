@@ -1,8 +1,6 @@
 # O365 - Microsoft Graph and Office 365 API made easy
 
 
-> API Documentation is available [here](https://o365.github.io/python-o365/latest/html/api.html)
-
 > Detailed usage documentation is still in progress
 
 This project aims is to make interact with Microsoft Graph and Office 365 easy to do in a Pythonic way. 
@@ -48,7 +46,7 @@ This project was also a learning resource for us. This is a list of not so commo
 - Etc. (see the code!)
 
 
-What follows is kind of a wiki... but you will get more insights by looking at the [docs](https://o365.github.io/python-o365/latest/html/api.html) or deep into the code.
+What follows is kind of a wiki...
 
 ## Table of contents
 
@@ -501,6 +499,35 @@ else:
     reply_msg.body = 'George Best quote: I used to go missing a lot... Miss Canada, Miss United Kingdom, Miss World.'
 
 reply_msg.send()
+```
+
+##### Sending Inline Images
+You can send inline images by doing this:
+
+```python
+# ...
+msg = account.new_message()
+msg.to.add('george@best.com')
+msg.attchments.add('my_image.png')
+att = msg.attchments[0]  # get the attachment object
+
+# this is super important for this to work.
+att.is_inline = True
+att.content_id = 'image.png'
+
+# notice we insert an image tag with source to: "cid:{content_id}"
+body = """
+    <html>
+        <body>
+            <strong>There should be an image here:</strong>
+            <p>
+                <img src="cid:image.png">
+            </p>
+        </body>
+    </html>
+    """
+msg.body = body
+msg.send()
 ```
 
 ## AddressBook
